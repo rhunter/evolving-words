@@ -5,51 +5,90 @@ body {
   text-align: center;
   font-family: sans-serif; }
 
-h1 {
+ul, ol { list-style: none;}
+
+.game {
+  display: block;
+  padding: 0px;
+  width: 720px;
+}
+.canvas {
+  display: inline-block;
+  border: thin solid #adb;
+  width: 80%;
+  padding-left: 0px;
+  margin-left: 0px;
+  position: absolute;
+}
+.canvas strong {
   color: rgba(0, 0, 0, .3);
   font-weight: bold;
   font-size: 32px;
   letter-spacing: -1px;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-  background: url("../images/middleman.png") no-repeat center 100px;
-  padding: 350px 0 10px;
-  margin: 0; }
+  padding: 50px 0 50px;
+  margin: 0;
+  width: 100%;
+  display: block;
+  }
 
-.doc {
+.canvas ul,
+.canvas ul li {
+  display: inline-block;
+  font-weight: normal;
+}
+.canvas > ul {
+  width: 100%;
+  position: absolute;
+}
+.canvas > ul > li {
+  width: 5em;
+  padding-right: 5em;
+  vertical-align: top;
+  min-height: 10ex;
+}
+.canvas > ul > li :link,
+.canvas > ul > li :visited {
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.canvas > ul > li :link {
+  color: rgba(0, 0, 0, .8);
+}
+.canvas > ul > li :visited {
+  color: rgba(0, 0, 0, .3);
+}
+.canvas ul li ul {
+  /*margin-left: -9em;
+  margin-bottom: -6ex;
+  padding-top: 2ex;
+  display: block;*/
+}
+
+.canvas li {
+  border: thin solid #dad;
+  border-radius: 5px;
+  width: 6em;
+}
+
+dl.status {
   font-size: 14px;
   margin: 0; }
-  .doc:before,
-  .doc:after {
-    opacity: .2;
-    padding: 6px;
-    font-style: normal;
-    position: relative;
-    content: "•"; }
-  .doc a {
-    color: rgba(0, 0, 0, 0.3); }
-    .doc a:hover {
-      color: #666; }
-
-.welcome {
-  -webkit-animation-name: welcome;
-  -webkit-animation-duration: .9s; }
-
-@-webkit-keyframes welcome {
-  from {
-    -webkit-transform: scale(0);
-    opacity: 0;
+  dl.status dt,
+  dl.status dd {
+    display: inline-block;
+    max-width: 10em;
+    min-width: 5em;
   }
-  50% {
-   -webkit-transform: scale(0);
-   opacity: 0;
+  dl.status dt {
+    font-weight: bold;
   }
-  82.5% {
-    -webkit-transform: scale(1.03);
-    -webkit-animation-timing-function: ease-out;
-    opacity: 1;
+  dl.status dd {
+    margin-right: 4em;
   }
-  to {
-    -webkit-transform: scale(1);
-  }
+.sidebar {
+  float: right;
 }

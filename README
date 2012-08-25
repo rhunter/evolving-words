@@ -1,0 +1,45 @@
+Word Drift is a word game developed as part of the 24th "Ludum Dare", a 48-hour game development competition.
+
+
+
+Development log
+===============
+
+## 11am (48 hours to go)
+
+I wake up and check the theme. Evolution. OK, fair enough. The first thought that comes to mind is clusters of little round cells, growing and evolving to more complex clusters. A bit like a rounded, 3D "Game of Life". I don't want a non-interactive game, though.
+
+A round arena with cells in the middle, and the player fires "evolution rays" or maybe just a destructive "trimming laser" at parts of the growth? Hmm. I like the visual.
+
+
+How might the cellular growth work? I sketch out some circles and lines, and it looks like a bad soda stick animation. I don't know if I can make this fun.
+
+OK, what else is there? Evolving words?
+
+Nothing new came to me in the shower, so I started work.
+
+
+## 3pm (44 hours to go)
+
+Finally got my wireframe looking kinda how I want. I probably spent too much time figuring out the CSS for nested lists, considering that I haven't even validated that this kind of game will be fun. Good enough for now, anyway.
+
+Screenshot:
+
+
+## 4pm (43 hours to go)
+
+Researching algorithms around word changes. Levenshtein distances seem to be the big thing. I start wondering if I'll run into speed issues with naively running through a whole dictionary (~50k words). I wish I was stronger at computer science -- algorithms and data structures might be very relevant here. I wonder about trading off time for space, pre-calculating the nearest neighbours for all of the words.
+
+A quick in-browser test seems that doing string matching over 50k words is quick enough to not notice. 500k is a bit slower but still doable. I guess I can start without optimizing.
+
+
+# 5pm (42 hours to go)
+Decided I didn't need Levenshtein anymore. It'll be easier for everyone if there are no "double jumps" -- every move is exactly one letter to add/change/remove. Coded some simple routines to find words that are one move away.
+
+# 7pm (40 hours to go)
+Started putting the pieces together.
+Also stopped to order some Thai food delivered :-) Very soon, there'll be enough of a game to click from word to word and follow evolutionary steps. Restrictions and bonuses are a way off yet, but I'll be able to get a basic feel for the game.
+
+7.30 terrible news! now that i've assembled enough of the game to be playable at all, it turns out that the game i had in mind probably won't work.
+
+For a start, there are no words close to amoeba. :-( Also, it's actually really hard to go where you want.
