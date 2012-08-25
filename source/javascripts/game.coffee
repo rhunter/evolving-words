@@ -101,11 +101,12 @@ class Game
   paintCandidateNextWords = (words) ->
     listItemHtml = (text) ->
       template = """
-      <li>
+      <li class="{{class}}">
         <a href="{{href}}">{{word}}</a>
       </li>
       """
       $.mustache template,
+        class: ['add', 'remove', 'change'][(Math.floor(Math.random()*3))]
         word: text
         href: '#' + text
     replacementHtml = words.map(listItemHtml).join("\n")

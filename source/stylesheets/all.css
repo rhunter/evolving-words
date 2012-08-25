@@ -24,7 +24,7 @@ ul, ol { list-style: none;}
   color: rgba(0, 0, 0, .3);
   font-weight: bold;
   font-size: 32px;
-  letter-spacing: -1px;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
   padding: 50px 0 50px;
@@ -50,16 +50,22 @@ ul, ol { list-style: none;}
 }
 .canvas > ul > li :link,
 .canvas > ul > li :visited {
+  display: block;
+  width: 10em;
+  padding-top: 5ex;
+  padding-bottom: 5ex;
+  vertical-align: middle;
   font-weight: bold;
   text-decoration: none;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 
 .canvas > ul > li :link {
-  color: rgba(0, 0, 0, .8);
+  color: #94b;
+
 }
 .canvas > ul > li :visited {
-  color: rgba(0, 0, 0, .3);
+  color: #769;
 }
 .canvas ul li ul {
   /*margin-left: -9em;
@@ -69,9 +75,35 @@ ul, ol { list-style: none;}
 }
 
 .canvas li {
-  border: thin solid #dad;
+  border: thin solid #999;
   border-radius: 5px;
+  box-shadow: 2px 2px 4px #aaa;
   width: 6em;
+}
+
+.canvas li.add {
+  background: #a99;
+}
+.canvas li.add:hover {
+  background: #daa;
+  box-shadow: 2px 2px 4px #aaa;
+  border-color: transparent;
+}
+
+.canvas li.remove {
+  background: #9a9;
+}
+.canvas li.remove:hover {
+  background: #ada;
+  border-color: transparent;
+}
+
+.canvas li.change {
+  background: #99a;
+}
+.canvas li.change:hover {
+  background: #aad;
+  border-color: transparent;
 }
 
 dl.status {
