@@ -15,14 +15,14 @@ class Game
     @trigger('word.change')
 
   stages_of_evolution: [
-    'cell'
-    'amoeba'
-    'worm'
-    'fish' # eye heart
-    'frog' # leg
-    'reptile' # hair milk
-    'mammal' # upright
-    'human'
+    'cell' # split 
+#    'amoeba' (too hard, nothing's connected to it)
+    'worm' # move swim egg
+    'fish' # eye heart gill
+    'frog' # leg air land
+    'reptile' # heat walk
+    'mammal' # hair milk upright nurse
+    'human' # brain cooking
   ]
 
   helpful_words: [

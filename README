@@ -61,8 +61,23 @@ I've stayed away for a few hours and haven't come back with huge flashes of insp
 Time to pack it in for the night. Before I go, I'll leave a long-running job pre-calculating the neighbours of each word. I'm thinking it might be useful to draw a "terrain map" or something to give a sense of directionality. It took a bit longer than I thought to hook up a working pre-calculation script, so it's nearly 1.30 before I get to bed.
 
 # 9am (26 hours to go)
-I woke up to check the results. Apparently it took under 20 minutes to calculate the neighbours for all 50k words in the dictionary. Good to know, in case I have to do it again with some different parameters.
+A decent sleep later, I woke up to check the results. Apparently it took under 20 minutes to calculate the neighbours for all 50k words in the dictionary. Good to know, in case I have to do it again with some different parameters.
 
 Loading the dictionary back into JavaScript to analyze it turns out to be more complicated than I expected -- `neighbours.length` no longer tells me how many entries in the dictionary, but rather the neighbours for the word "length". JavaScript methods and English words have a lot of overlap. Dang.
 
 Anyway, my biggest problem is still "fun" in the game. Picking words from a list isn't that fun. It doesn't feel directed.
+
+I'm back online now (mobile tethering). Immediately downloaded d3.js for maybe doing force-directed layouts, as well as some other libraries that might help like angular.js for templating and data binding. People in the IRC channel were talking about A* and I wondered if it would be worth using for "distance to goal" calculations. I haven't implemented A* before but I've walked through it in the past and Wikipedia's entry has a pretty concrete pseudocode implementation.
+
+Time for breakfast!
+
+10.00
+11.00 playing with Alchemy. I can't make it work no-handed like it does in the demo video, but it's danged cool. I don't know if it'll be much use for this word game, but it's an awesome source of visual inspiration.
+
+Inspiration strikes. It might not be fun to pick each word on the way to a destination, but maybe if the computer were doing the work and the player intervened... I'll sketch on this idea while I'm out at lunch.
+
+2.30pm
+Back to it! The lunch break sketching session felt productive. I've got a direction to take the game now, one which might actually be fun. It's going to need help from a visualisation library. I hope I can pull it off.
+
+5.30pm
+That A* article turned out to be pretty useful -- I've spent a couple of hours implementing it which I hope turns out to be worthwhile. It's not hooked up to the main game, but the console output tells me that there's a very short path from CELL to WORM to FISH to FROG. There's nothing to connect REPTILE or MAMMAL or HUMAN, though, which means a single chain of dictionary words won't be enough to progress to the later stages. That works out pretty well with increasing difficulty :-) The routing algorithm decided the shortest path from FISH to FROG involved going through a word I'd rather not show up un-announced, so I also added support for variable-cost routing.
