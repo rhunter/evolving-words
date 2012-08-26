@@ -1,6 +1,8 @@
 Word Drift is a word game developed as part of the 24th "Ludum Dare", a 48-hour game development competition.
 
 
+It wasn't finished to a polished state, but I'd like to submit what I have.
+
 
 Development log
 ===============
@@ -122,3 +124,5 @@ I keep seeing a "bad word" listed as a choice and I'd really rather not release 
 The audio makes a suprising difference. Everyone on the Web was talking about the awful state of the <AUDIO> tag but it seemed to work OK for Chrome and Safari. Better try Firefox. UGH! No audio at all, and even worse -- the game renders poorly in Firefox, too.
 
 I was going to pack it all in but I can't leave Firefox hanging like that. I feel pretty bad about not checking, and I also grumble a bit at Firefox. Apart from upgrading several major revisions and then upgrading some more, I find myself thinking "WebKit can render these pages, why can't you?". Half an hour of DOM digging later, it turns out that Firefox is just picking up on some styling mistakes I made. Invalid markup. Styling all paragraphs when I just meant one. {position: absolute} without {left: 0}.
+
+3am (8 hours to go)
