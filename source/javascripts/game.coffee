@@ -160,6 +160,7 @@ class Game
     window.location.hash = '#' + game.currentWord
     paintAll()
     paintCandidateNextWords(game.candidateNextWords)
+    $('audio.wordchange')[0].play()
 
   onWaypointSuggested = (suggestedWaypoint) ->
     hint = d3.select('.hint').data([suggestedWaypoint])
@@ -173,11 +174,14 @@ class Game
   onHashChange = ->
     newWord = window.location.hash.replace(/^#*/, '')
     game.advanceToWord(newWord)
-    
+
+  onEvolution = ->
+    $('audio#level-up')[0].play()
 
   d3.json 'javascripts/wordneighbours.json', (wordNeighbours) ->
     game = new Game(wordNeighbours)
     game.on 'word.change', onWordChange
+    game.on 'evolve', onEvolution
     game.on 'hint.waypoint_suggested', onWaypointSuggested
     $(window).on('hashchange', onHashChange) # TODO: I'm sure D3 can register a hashchange handler too
     onWordChange()
