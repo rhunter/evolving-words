@@ -25,6 +25,10 @@ class Game
     stage = @stagesOfEvolution[@nextEvolutionStageIndex]
     @currentBoosters = stage.bonuses
     @nextEvolutionStageIndex++
+    if @stagesOfEvolution.length <= @nextEvolutionStageIndex
+      @trigger('win')
+      return
+
     @nextStage = @stagesOfEvolution[@nextEvolutionStageIndex]
     @trigger('evolve')
 
@@ -51,9 +55,10 @@ class Game
     {name: 'worm', bonuses: ['move', 'swim', 'egg']}
     {name: 'fish', bonuses: ['eye', 'heart', 'gill']}
     {name: 'frog', bonuses: ['leg', 'air', 'land']}
-    {name: 'reptile', bonuses: ['heat', 'walk']}
-    {name: 'mammal', bonuses: ['hair', 'milk', 'upright', 'nurse']}
-    {name: 'human', bonuses: ['brain', 'cooking', 'tools']}
+    # nothing's connected to reptile either
+    # {name: 'reptile', bonuses: ['heat', 'walk']}
+    # {name: 'mammal', bonuses: ['hair', 'milk', 'upright', 'nurse']}
+    # {name: 'human', bonuses: ['brain', 'cooking', 'tools']}
   ]
 
   helpful_words: [
@@ -133,7 +138,7 @@ class Game
     paintStatus()
 
   paintCurrentWord = ->
-    d3.select('.current-word').text(game.currentWord)
+    d3.selectAll('.current-word').text(game.currentWord)
 
   paintCandidateNextWords = (words) ->
     listItemHtml = (text) ->
@@ -178,11 +183,18 @@ class Game
   onEvolution = ->
     $('audio#level-up')[0].play()
 
+  onWonGame = ->
+    $('.game')
+      .toggleClass('not-yet-won', false)
+      .toggleClass('won', true)
+    $('.game .win-screen audio')[0].play()
+
   d3.json 'javascripts/wordneighbours.json', (wordNeighbours) ->
     game = new Game(wordNeighbours)
     game.on 'word.change', onWordChange
     game.on 'evolve', onEvolution
     game.on 'hint.waypoint_suggested', onWaypointSuggested
+    game.on 'win', onWonGame
     $(window).on('hashchange', onHashChange) # TODO: I'm sure D3 can register a hashchange handler too
     onWordChange()
 
