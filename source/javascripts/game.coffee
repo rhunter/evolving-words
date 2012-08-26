@@ -30,7 +30,7 @@ class Game
       return
 
     @nextStage = @stagesOfEvolution[@nextEvolutionStageIndex]
-    @trigger('evolve')
+    @trigger('evolve', stage)
 
   suggestWaypoint: =>
     worker = new Worker('javascripts/wordDistance.js')
@@ -180,7 +180,8 @@ class Game
     newWord = window.location.hash.replace(/^#*/, '')
     game.advanceToWord(newWord)
 
-  onEvolution = ->
+  onEvolution = (newStage) ->
+    $('.game').attr('data-level', newStage.name)
     $('audio#level-up')[0].play()
 
   onWonGame = ->

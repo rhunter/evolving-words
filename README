@@ -125,4 +125,11 @@ The audio makes a suprising difference. Everyone on the Web was talking about th
 
 I was going to pack it all in but I can't leave Firefox hanging like that. I feel pretty bad about not checking, and I also grumble a bit at Firefox. Apart from upgrading several major revisions and then upgrading some more, I find myself thinking "WebKit can render these pages, why can't you?". Half an hour of DOM digging later, it turns out that Firefox is just picking up on some styling mistakes I made. Invalid markup. Styling all paragraphs when I just meant one. {position: absolute} without {left: 0}.
 
-3am (8 hours to go)
+# 3am (8 hours to go)
+Some more cross-browser compatibility, a little bit of responsive design, and I think I'm going to have to call it a night. Which means the end of the competition. I'll just make sure that there's no leftover images or anything that's not mine. Oh, there's the background texture.
+
+# 4am (7 hours to go)
+I'm going to be tired for work tomorrow, if I get up at all. On the upside, I have a much more game-looking game. It's still horribly ugly, but it's clearly a game now.
+
+# 5am (6 hours to go)
+What the heck, man, why am I still up?

@@ -1,19 +1,42 @@
 @charset "utf-8";
 
 body {
-  background: #d4d4d4 url("../images/background.png");
+  background: #040404;
+  background-size: cover 100%;
+  color: #d0d0d0;
   text-align: center;
-  font-family: sans-serif; }
+  font-family: fantasy; }
 
 ul, ol { list-style: none;}
 
+@media screen and (min-width: 720px) {
+  h1, .game {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+h1 {max-width: 720px;}
+
 .game {
+  background-size: cover;
+  background-image: url("/images/fungus2.jpg");
   display: block;
   padding: 0px;
   width: 100%;
   max-width: 720px;
   min-width: 20em;
-  position: absolute;
+  /*position: absolute;*/
+}
+
+.game[data-level~="cell"] {
+  background-image: url("../images/fungus1.jpg");
+}
+.game[data-level~="worm"] {
+  background-image: url("../images/skin6.jpg"), url("../images/skin7.jpg");
+}
+
+.game[data-level~="fish"] {
+  background-image: url("../images/blue2.jpg");
 }
 
 @media screen and (max-height: 500px) {
@@ -22,9 +45,9 @@ ul, ol { list-style: none;}
     font-size: 80%;
   }
 }
+
 .canvas {
   display: inline-block;
-  border: thin solid #adb;
   width: 100%;
   padding-left: 0px;
   margin-left: 0px;
@@ -48,6 +71,7 @@ ul, ol { list-style: none;}
 .canvas ul li {
   display: inline-block;
   font-weight: normal;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 .canvas > ul {
   width: 100%;
@@ -59,11 +83,12 @@ ul, ol { list-style: none;}
   width: auto;
 }
 .canvas > ul > li {
-  width: 5em;
+  /*width: 5em;*/
   padding-right: 5em;
   vertical-align: top;
   min-height: 10ex;
 }
+
 .canvas > ul > li :link,
 .canvas > ul > li :visited {
   display: block;
@@ -76,12 +101,18 @@ ul, ol { list-style: none;}
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
 }
 
+@media screen and (max-width: 600px) and (max-height: 600px) {
+  .canvas > ul > li {
+    font-size: 80%;   
+  }
+}
 .canvas > ul > li :link {
   color: #94b;
-
+  color: rgba(200, 200, 200, .5);
 }
 .canvas > ul > li :visited {
   color: #769;
+  color: rgba(180, 180, 180, .5);
 }
 .canvas ul li ul {
   /*margin-left: -9em;
@@ -91,34 +122,44 @@ ul, ol { list-style: none;}
 }
 
 .canvas li {
-  border: thin solid #999;
+  /*border: thin solid #999;*/
   border-radius: 5px;
-  box-shadow: 2px 2px 4px #aaa;
+  border-color: rgba(170, 170, 170, .9);
+  margin-top: 3px;
+  box-shadow: 2px 2px 4px #333;
   width: 6em;
 }
 
 .canvas li.add {
   background: #a99;
+  background-image: url('/images/red3.jpg');
+  background-opacity: .1;
 }
 .canvas li.add:hover {
   background: #daa;
-  box-shadow: 2px 2px 4px #aaa;
+  background-image: url('/images/red1.jpg');
+  box-shadow: 3px 3px 5px #333;
   border-color: transparent;
 }
 
 .canvas li.remove {
   background: #9a9;
+  background-image: url('/images/green4.jpg');
 }
 .canvas li.remove:hover {
   background: #ada;
+  background-image: url('/images/green1.jpg');
   border-color: transparent;
+  color: rgba(200, 200, 200, .9);
 }
 
 .canvas li.change {
   background: #99a;
+  background-image: url('/images/blue4.jpg');
 }
 .canvas li.change:hover {
   background: #aad;
+  background-image: url('/images/blue1.jpg');
   border-color: transparent;
 }
 
@@ -135,7 +176,10 @@ ul, ol { list-style: none;}
   height: 100%;
   min-height: 40em;
   z-index: 100;
-  background: white;
+  color: #222;
+  color: rgba(30, 30, 30, .8);
+  background: white url('/images/white3.jpg');
+  background-size: cover;
 }
 
 .game .win-screen h1,
