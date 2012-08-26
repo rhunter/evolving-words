@@ -1,28 +1,32 @@
 #= require 'jquery-1.7.2'
 #= require 'jquery.mustache'
+#= require 'd3.v2'
 #= require 'wordDistance'
+#= require 'dictionary'
 
 class Game
-  constructor: (startingWord) ->
+  constructor: (@wordNeighbours) ->
+    startingWord = @stagesOfEvolution[0].name
+    @nextTarget = @stagesOfEvolution[1].name
+    console.log "starting with #{startingWord}"
     @advanceToWord(startingWord)
 
   advanceToWord: (newWord) ->
+    throw new Error("there is supposed to be a word") unless newWord
     @currentWord = newWord
-    @candidateNextWords = all_words
-      .filter(isCloseTo(@currentWord))
-      .filter (word) =>
-        word != @currentWord
+    @candidateNextWords = (@wordNeighbours[@currentWord] || [])
+      .filter (word) -> word != newWord
     @trigger('word.change')
 
-  stages_of_evolution: [
-    'cell' # split 
+  stagesOfEvolution: [
+    {name:'cell', bonuses: ['split']}
 #    'amoeba' (too hard, nothing's connected to it)
-    'worm' # move swim egg
-    'fish' # eye heart gill
-    'frog' # leg air land
-    'reptile' # heat walk
-    'mammal' # hair milk upright nurse
-    'human' # brain cooking
+    {name: 'worm', bonuses: ['move', 'swim', 'egg']}
+    {name: 'fish', bonuses: ['eye', 'heart', 'gill']}
+    {name: 'frog', bonuses: ['leg', 'air', 'land']}
+    {name: 'reptile', bonuses: ['heat', 'walk']}
+    {name: 'mammal', bonuses: ['hair', 'milk', 'upright', 'nurse']}
+    {name: 'human', bonuses: ['brain', 'cooking', 'tools']}
   ]
 
   helpful_words: [
@@ -74,7 +78,7 @@ class Game
 #   'beard'
 # ]
 
-  currentWord: 'heart'
+  currentWord: 'YOU SHOULD NEVER SEE THIS DEFAULT WORD'
   candidateNextWords: []
 #   'hear'
 #   'heard'
@@ -92,11 +96,15 @@ class Game
     for callback in (@events[eventName] || [])
       callback()
 
-(($) ->
+(($, d3) ->
   game = null
 
+  paintAll = ->
+    paintCurrentWord()
+    paintCandidateNextWords(game.candidateNextWords)
+
   paintCurrentWord = ->
-    $('.current-word').text(game.currentWord)
+    d3.select('.current-word').text(game.currentWord)
 
   paintCandidateNextWords = (words) ->
     listItemHtml = (text) ->
@@ -110,10 +118,11 @@ class Game
         word: text
         href: '#' + text
     replacementHtml = words.map(listItemHtml).join("\n")
-    $('.canvas > ul').html(replacementHtml)
+    d3.select('.canvas > ul').html(replacementHtml)
 
   onWordChange = ->
-    paintCurrentWord()
+    window.location.hash = '#' + game.currentWord
+    paintAll()
     paintCandidateNextWords(game.candidateNextWords)
 
   onHashChange = ->
@@ -121,15 +130,11 @@ class Game
     game.advanceToWord(newWord)
     
 
-  $ ->
-    game = new Game('heart')
+  d3.json 'javascripts/wordneighbours.json', (wordNeighbours) ->
+    game = new Game(wordNeighbours)
     game.on 'word.change', onWordChange
-    $(window).on('hashchange', onHashChange)
-    onHashChange()
-    
-# on paint
-  # paint main with current_word
-    paintCandidateNextWords(game.candidateNextWords)
+    $(window).on('hashchange', onHashChange) # TODO: I'm sure D3 can register a hashchange handler too
+    onWordChange()
 
 # on choose next_word
 #   evolve if next_word == target_word
@@ -138,7 +143,7 @@ class Game
 #   award_bonuses for current_word
 #   paint
 
-)(jQuery)
+)(jQuery, d3)
 
 # for word in candidate_next_words
 #   maybe = areWordsAdjacent(current_word, word)
