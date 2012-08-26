@@ -14,6 +14,7 @@ badWords = [
   'cunt'
   'piss'
   'nigger'
+  'whore'
 ]
 reconstructPath = (cameFrom, currentNode) ->
   if currentNode of cameFrom
