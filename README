@@ -97,6 +97,6 @@ I tried switching everything to D3 from jQuery but had some trouble with nested 
  * fun
  * polished
 
-The game is definitely not going to win any prizes, but I'd like the feeling of accomplishment. I think I've got "playable", but "obvious" is a bit more questionable. With that in mind, I've started adding hints and help text.
+The game is definitely not going to win any prizes, but I'd like the feeling of accomplishment. I think I've got "playable", but "obvious" is a bit more questionable. With that in mind, I've started adding hints and help text. Unfortunately, the heavy lifting that was OK from the console is less cool when it locks up the browser window.
 
 It's coming toward the end of the weekend here in Australia and I'm going to sleep tonight and to work after that. My personal deadline is just a couple of hours away, then.

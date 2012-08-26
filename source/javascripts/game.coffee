@@ -18,6 +18,7 @@ class Game
     @candidateNextWords = (@wordNeighbours[@currentWord] || [])
       .filter (word) -> word != newWord
     @evolve() if @currentWord == @nextStage.name
+    setTimeout(@suggestWaypoint, 0)
     @trigger('word.change')
 
   evolve: ->
@@ -26,6 +27,14 @@ class Game
     @nextEvolutionStageIndex++
     @nextStage = @stagesOfEvolution[@nextEvolutionStageIndex]
     @trigger('evolve')
+
+  suggestWaypoint: =>
+    suggestRouteBetween @currentWord, @nextStage.name, ((word) => @wordNeighbours[word]), (route) =>
+      if route.length < 3
+        @trigger('hint.unnecessary')
+        return
+      helpfulIndex = Math.floor(route.length / 3)
+      @trigger('hint.waypoint_suggested', route[helpfulIndex])
 
   stagesOfEvolution: [
     {name:'cell', bonuses: ['split']}
@@ -102,9 +111,9 @@ class Game
     @events[eventName] ||= []
     @events[eventName].push callback
 
-  trigger: (eventName) ->
+  trigger: (eventName, args...) ->
     for callback in (@events[eventName] || [])
-      callback()
+      callback(args...)
 
 (($, d3) ->
   game = null
@@ -143,6 +152,13 @@ class Game
     paintAll()
     paintCandidateNextWords(game.candidateNextWords)
 
+  onWaypointSuggested = (suggestedWaypoint) ->
+    hint = d3.select('.hint').data([suggestedWaypoint])
+    hint.enter().append('p').class('hint')
+    hint.exit().remove()
+    hint.text (waypoint) ->
+      "Try going through '#{waypoint}'"
+
   onHashChange = ->
     newWord = window.location.hash.replace(/^#*/, '')
     game.advanceToWord(newWord)
@@ -151,6 +167,7 @@ class Game
   d3.json 'javascripts/wordneighbours.json', (wordNeighbours) ->
     game = new Game(wordNeighbours)
     game.on 'word.change', onWordChange
+    game.on 'hint.waypoint_suggested', onWaypointSuggested
     $(window).on('hashchange', onHashChange) # TODO: I'm sure D3 can register a hashchange handler too
     onWordChange()
 
