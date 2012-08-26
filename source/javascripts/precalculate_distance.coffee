@@ -17,9 +17,8 @@ badWords = [
 ]
 reconstructPath = (cameFrom, currentNode) ->
   if currentNode of cameFrom
-    path = reconstructPath(cameFrom, cameFrom[currentNode])
-    path.push currentNode
-    return path
+    pathSoFar = reconstructPath(cameFrom, cameFrom[currentNode])
+    return pathSoFar.concat [currentNode]
   return [currentNode]
 
 routeByAStar = (start, goal) ->
