@@ -70,7 +70,7 @@ routeByAStar = (start, goal) ->
     alreadyCheckedWords.push current
     # console.log "Checking out #{current}'s neighbours..."
     # console.log neighbours[current]
-    for neighbour in neighbours[current]
+    for neighbour in (neighbours[current] || [])
       # console.log "Checking neighbour: #{neighbour}"
       continue if neighbour in alreadyCheckedWords
       tentativeCostFromStart = costAlongBestKnownPathFrom[current] + actualDistanceBetween(current, neighbour)
@@ -90,21 +90,11 @@ routeByAStar = (start, goal) ->
 {print} = require 'util'
 console.log = ->
 
-stages_of_evolution = [
-    'cell' # split 
-#    'amoeba' (too hard, nothing's connected to it)
-    'worm' # move swim egg
-    'fish' # eye heart gill
-    'frog' # leg air land
-    'reptile' # heat walk
-    'mammal' # hair milk upright nurse
-    'human' # brain cooking
-  ]
+stages_of_evolution = process.argv.slice(2)
 incrementalPath = (pathSoFar, nextTarget) ->
-  print JSON.stringify pathSoFar
   lastMilestone = pathSoFar[pathSoFar.length - 1]
   pathToNextTarget = routeByAStar(lastMilestone, nextTarget)
   pathSoFar.concat(pathToNextTarget)
   
-print stages_of_evolution.reduce(incrementalPath, [stages_of_evolution[0]])
-print JSON.stringify(routeByAStar('cell', 'worm'))
+print JSON.stringify stages_of_evolution.reduce(incrementalPath, [stages_of_evolution[0]])
+# print JSON.stringify(routeByAStar('cell', 'worm'))
