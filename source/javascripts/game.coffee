@@ -29,13 +29,22 @@ class Game
     @trigger('evolve')
 
   suggestWaypoint: =>
-    suggestRouteBetween @currentWord, @nextStage.name, ((word) => @wordNeighbours[word]), (route) =>
+    worker = new Worker('javascripts/wordDistance.js')
+    worker.onmessage = (e) =>
+      {route} = JSON.parse(e.data)
+      console.log(route)
       if route.length < 3
         @trigger('hint.unnecessary')
         return
       helpfulIndex = Math.floor(route.length / 3)
       @trigger('hint.waypoint_suggested', route[helpfulIndex])
 
+    worker.postMessage(JSON.stringify
+        command: 'suggestRouteBetween'
+        source: @currentWord,
+        target: @nextStage.name,
+        neighbours: @wordNeighbours
+    )
   stagesOfEvolution: [
     {name:'cell', bonuses: ['split']}
 #    'amoeba' (too hard, nothing's connected to it)
@@ -154,7 +163,9 @@ class Game
 
   onWaypointSuggested = (suggestedWaypoint) ->
     hint = d3.select('.hint').data([suggestedWaypoint])
-    hint.enter().append('p').class('hint')
+    hint.enter()
+      .append('p')
+        .attr('class', 'hint')
     hint.exit().remove()
     hint.text (waypoint) ->
       "Try going through '#{waypoint}'"

@@ -1,4 +1,3 @@
-console = {log: ->}
 areWordsAdjacent = (sourceWord, targetWord) ->
   differenceInLengths = targetWord.length - sourceWord.length
   if differenceInLengths == 1
@@ -49,7 +48,9 @@ reconstructPath = (cameFrom, currentNode) ->
     return pathSoFar.concat [currentNode]
   return [currentNode]
 
-routeByAStar = (start, goal, findNeighboursOf) ->
+
+checkedWordCache = {}
+routeByAStar = (start, goal, neighbours) ->
   alreadyCheckedWords = []
   possibilitiesToCheck = [start]
   cameFrom = {}
@@ -75,43 +76,45 @@ routeByAStar = (start, goal, findNeighboursOf) ->
     # bad words are considered "high cost"
     if (a in badWords) or (b in badWords)
       return COST_OF_BAD_WORDS
-    1
-  console.log "here we go"
+    return 1 if b.length < a.length
+    return 2 if b.length == a.length
+    return 4
+  # console.log "here we go"
 
   costAlongBestKnownPathFrom[start] = 0
   estimatedTotalCostToGoalVia[start] = costAlongBestKnownPathFrom[start] + estimatedDistanceBetween(start, goal)
 
-  console.log "starting"
-  console.log possibilitiesToCheck
-  console.log possibilitiesToCheck.length
+  # console.log "starting"
+  # console.log possibilitiesToCheck
+  # console.log possibilitiesToCheck.length
   while (possibilitiesToCheck.length) > 0
-    console.log "===== STILL LOOKING:"
-    console.log "Considering #{possibilitiesToCheck.length} possibilities."
-    console.log "Already checked #{alreadyCheckedWords.length} possibilities."
-    console.log "------"
-    # console.log "what's the cheapest?"
+    # console.log "===== STILL LOOKING:"
+    # console.log "Considering #{possibilitiesToCheck.length} possibilities."
+    # console.log "Already checked #{alreadyCheckedWords.length} possibilities."
+    # console.log "------"
+    # # console.log "what's the cheapest?"
     current = possibilityWithCheapestEstimatedCost()
-    console.log "apparently the cheapest is #{current}, which costs #{estimatedTotalCostToGoalVia[current]}"
+    # console.log "apparently the cheapest is #{current}, which costs #{estimatedTotalCostToGoalVia[current]}"
     if current == goal
       return reconstructPath(cameFrom, goal)
     discardPossibility current
     alreadyCheckedWords.push current
-    # console.log "Checking out #{current}'s neighbours..."
-    # console.log neighbours[current]
-    for neighbour in (findNeighboursOf current || [])
-      # console.log "Checking neighbour: #{neighbour}"
+    # # console.log "Checking out #{current}'s neighbours..."
+    # # console.log neighbours[current]
+    for neighbour in (neighbours[current] || [])
+      # # console.log "Checking neighbour: #{neighbour}"
       continue if neighbour in alreadyCheckedWords
       tentativeCostFromStart = costAlongBestKnownPathFrom[current] + actualDistanceBetween(current, neighbour)
 
       mightBeCloserThanNeighbour = (neighbour not in alreadyCheckedWords) or (tentativeCostFromStart < costAlongBestKnownPathFrom[neighbour])
-      # console.log "#{current} might cost #{tentativeCostFromStart} from start, #{mightBeCloserThanNeighbour} closer than #{neighbour} (best #{costAlongBestKnownPathFrom[neighbour]})"
+      # # console.log "#{current} might cost #{tentativeCostFromStart} from start, #{mightBeCloserThanNeighbour} closer than #{neighbour} (best #{costAlongBestKnownPathFrom[neighbour]})"
       if mightBeCloserThanNeighbour
-        # console.log "Yeah, worth checking #{neighbour}"
+        # # console.log "Yeah, worth checking #{neighbour}"
         considerPossibility(neighbour)
         cameFrom[neighbour] = current
         costAlongBestKnownPathFrom[neighbour] = tentativeCostFromStart
         estimatedTotalCostToGoalVia[neighbour] = costAlongBestKnownPathFrom[neighbour] + estimatedDistanceBetween(neighbour, goal)
-      # console.log "Next!"
+      # # console.log "Next!"
   throw new Error("Can't route between #{start} and #{goal} (even after searching #{alreadyCheckedWords.length} words)")
 
 
@@ -122,8 +125,18 @@ routeByAStar = (start, goal, findNeighboursOf) ->
 this.isCloseTo = (referenceWord) ->
   (candidateWord) -> areWordsAdjacent(referenceWord, candidateWord)
 
-this.suggestRouteBetween = (word1, word2, findNeighboursFunction, callback) ->
-  route = routeByAStar(word1, word2, findNeighboursFunction)
+this.suggestRouteBetween = (word1, word2, neighbours, callback) ->
+  route = routeByAStar(word1, word2, neighbours)
   callback(route)
 
 this.areWordsAdjacent = areWordsAdjacent
+
+this.onmessage = (e) ->
+  data = JSON.parse(e.data)
+  if data.command == 'suggestRouteBetween'
+    route = routeByAStar(data.source, data.target, data.neighbours)
+    postMessage JSON.stringify
+        result: 'suggestedRoute'
+        source: data.source
+        target: data.target
+        route: route
