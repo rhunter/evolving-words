@@ -7,7 +7,8 @@
 class Game
   constructor: (@wordNeighbours) ->
     startingWord = @stagesOfEvolution[0].name
-    @nextTarget = @stagesOfEvolution[1].name
+    @nextEvolutionStageIndex = 0
+    @evolve()
     console.log "starting with #{startingWord}"
     @advanceToWord(startingWord)
 
@@ -16,7 +17,15 @@ class Game
     @currentWord = newWord
     @candidateNextWords = (@wordNeighbours[@currentWord] || [])
       .filter (word) -> word != newWord
+    @evolve() if @currentWord == @nextStage.name
     @trigger('word.change')
+
+  evolve: ->
+    stage = @stagesOfEvolution[@nextEvolutionStageIndex]
+    @currentBoosters = stage.bonuses
+    @nextEvolutionStageIndex++
+    @nextStage = @stagesOfEvolution[@nextEvolutionStageIndex]
+    @trigger('evolve')
 
   stagesOfEvolution: [
     {name:'cell', bonuses: ['split']}
@@ -79,6 +88,7 @@ class Game
 # ]
 
   currentWord: 'YOU SHOULD NEVER SEE THIS DEFAULT WORD'
+  currentBoosters: []
   candidateNextWords: []
 #   'hear'
 #   'heard'
@@ -102,6 +112,7 @@ class Game
   paintAll = ->
     paintCurrentWord()
     paintCandidateNextWords(game.candidateNextWords)
+    paintStatus()
 
   paintCurrentWord = ->
     d3.select('.current-word').text(game.currentWord)
@@ -119,6 +130,13 @@ class Game
         href: '#' + text
     replacementHtml = words.map(listItemHtml).join("\n")
     d3.select('.canvas > ul').html(replacementHtml)
+
+  paintStatus = ->
+    d3.select('dd#next-stage').text(game.nextStage.name)
+    d3boosters = d3.select('ul.boosters').selectAll('li').data(game.currentBoosters)
+    d3boosters.enter().append('li')
+    d3boosters.text(String)
+    d3boosters.exit().remove()
 
   onWordChange = ->
     window.location.hash = '#' + game.currentWord

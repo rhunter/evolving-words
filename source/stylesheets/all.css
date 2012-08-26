@@ -120,7 +120,11 @@ dl.status {
   }
   dl.status dd {
     margin-right: 4em;
+    text-transform: uppercase;
   }
 .sidebar {
   float: right;
+}
+.boosters {
+  text-transform: uppercase;
 }
