@@ -66,7 +66,11 @@ h1 {max-width: 720px;}
   width: 100%;
   display: block;
   }
-
+.canvas strong .letter {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
 .canvas ul,
 .canvas ul li {
   display: inline-block;

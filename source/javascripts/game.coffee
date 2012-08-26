@@ -138,7 +138,20 @@ class Game
     paintStatus()
 
   paintCurrentWord = ->
-    d3.selectAll('.current-word').text(game.currentWord)
+    letters = d3.selectAll('.current-word').selectAll('.letter').data(game.currentWord.split(''), (d,i)->d+i)
+    
+    letters.enter()
+      .insert('span')
+        .attr('class', 'letter')
+        .style('opacity', 1e-6)
+      .transition().duration(5000)
+        .style('opacity', 1)
+
+    letters.text(String)
+
+    fadeOut = letters.exit().transition().duration(5000)
+    fadeOut.style('opacity', 1e-6).style('width', 0)
+    fadeOut.remove()
 
   paintCandidateNextWords = (words) ->
     listItemHtml = (text) ->
