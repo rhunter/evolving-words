@@ -81,3 +81,22 @@ Back to it! The lunch break sketching session felt productive. I've got a direct
 
 5.30pm
 That A* article turned out to be pretty useful -- I've spent a couple of hours implementing it which I hope turns out to be worthwhile. It's not hooked up to the main game, but the console output tells me that there's a very short path from CELL to WORM to FISH to FROG. There's nothing to connect REPTILE or MAMMAL or HUMAN, though, which means a single chain of dictionary words won't be enough to progress to the later stages. That works out pretty well with increasing difficulty :-) The routing algorithm decided the shortest path from FISH to FROG involved going through a word I'd rather not show up un-announced, so I also added support for variable-cost routing.
+
+
+8.00pm (15 hours to go)
+What a bender! I realised I'd made the mistake of diving too deep without checking myself, so I stopped and took a breath. I've wired up everything to a somewhat-playable game. The player starts at CELL and can progress through evolutionary stages.
+
+I've also switched most things over to D3 from jQuery.
+
+9.00pm (14 hours to go)
+I tried switching everything to D3 from jQuery but had some trouble with nested elements in the next-word buttons. It's not important enough to focus on, so I stashed those changes and got on with making the game more completely playable. I figure at this stage my priorities are:
+
+ * playable
+ * obvious
+ * completable
+ * fun
+ * polished
+
+The game is definitely not going to win any prizes, but I'd like the feeling of accomplishment. I think I've got "playable", but "obvious" is a bit more questionable. With that in mind, I've started adding hints and help text.
+
+It's coming toward the end of the weekend here in Australia and I'm going to sleep tonight and to work after that. My personal deadline is just a couple of hours away, then.
