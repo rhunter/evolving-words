@@ -3,21 +3,28 @@ title: Evolving words
 ---
 
 <h1>Evolving Words</h1>
-<div class="game level-cell not-yet-won">
-  <dl class="status">
-  	<dt>Life</dt>
-  	<dd>33</dd>
-  	
-	<dt>Next stage:
-		<audio id="level-up" preload="auto">
-  			<source src="audio/levelup1.wav" />
-  			<source src="audio/levelup1.mp3" />
+<div class="game not-yet-won">
+  <div class="instructions">
+	<p>Evolve by changing a letter at a time.
+		<audio class="wordchange" preload="auto">
+			<source src="audio/wordchange1.wav" />
+			<source src="audio/wordchange1.mp3" />
 		</audio>
-	</dt>
-	<dd id="next-stage">AMOEBA</dd>
-  </dl>
+	</p>  	
+	<p class="next">The next stage of evolution is <strong id="next-stage">AMOEBA</strong>
+		<audio id="level-up" preload="auto">
+			<source src="audio/levelup1.wav" />
+			<source src="audio/levelup1.mp3" />
+		</audio>
+	
+  	</p>
+
+	<p class="hint">...</p>
+  </div>
   <div class="canvas">
-  	<strong class="current-word">HE<em class="bonus">ART</em></strong>
+  	<p>
+  		<strong class="current-word">HE<em class="bonus">ART</em></strong>
+  	</p>
   	<ul>
   		<li>...</li>
   		<li><span class="word">hear</span>
@@ -43,12 +50,6 @@ title: Evolving words
 
   </div>
   <div class="sidebar">
-  	<p class="hint">Change one letter at a time to evolve to the next stage.</p>
-  	<audio class="wordchange" preload="auto">
-  		<source src="audio/wordchange1.wav" />
-  		<source src="audio/wordchange1.mp3" />
-  	</audio>
-
   	Boosters:
   	<audio class="boosters" preload="auto">
   		<source src="audio/bonus1.wav">

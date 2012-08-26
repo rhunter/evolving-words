@@ -155,7 +155,7 @@ class Game
     d3.select('.canvas > ul').html(replacementHtml)
 
   paintStatus = ->
-    d3.select('dd#next-stage').text(game.nextStage.name)
+    d3.select('#next-stage').text(game.nextStage.name)
     d3boosters = d3.select('ul.boosters').selectAll('li').data(game.currentBoosters)
     d3boosters.enter().append('li')
     d3boosters.text(String)
@@ -174,7 +174,7 @@ class Game
         .attr('class', 'hint')
     hint.exit().remove()
     hint.text (waypoint) ->
-      "Try going through '#{waypoint}'"
+      "Try going through '#{waypoint}'."
 
   onHashChange = ->
     newWord = window.location.hash.replace(/^#*/, '')

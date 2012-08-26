@@ -54,19 +54,37 @@ h1 {max-width: 720px;}
   /*position: absolute;*/
   left: 0px;
 }
+.canvas p {
+  display: inline-block;
+}
+.instructions {
+  color: rgba(0, 0, 0, .7);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
+}
+.instructions p.next,
+.instructions p.hint {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  display: inline-block;
+  opacity: 80%;
+}
+.instructions strong,
 .canvas strong {
-  color: rgba(0, 0, 0, .3);
+  color: rgba(150, 150, 150, .3);
   font-weight: bold;
   font-size: 32px;
   letter-spacing: 0.5em;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-  padding: 50px 0 50px;
   margin: 0;
   width: 100%;
   display: block;
   }
-
+@media screen and (min-height: 600px){
+  .canvas strong {
+    padding: 50px 0 50px;
+  }
+}
 .canvas ul,
 .canvas ul li {
   display: inline-block;
