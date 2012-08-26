@@ -118,18 +118,20 @@ class Game
     d3.select('.current-word').text(game.currentWord)
 
   paintCandidateNextWords = (words) ->
-    listItemHtml = (text) ->
-      template = """
-      <li class="{{class}}">
-        <a href="{{href}}">{{word}}</a>
-      </li>
-      """
-      $.mustache template,
-        class: ['add', 'remove', 'change'][(Math.floor(Math.random()*3))]
-        word: text
-        href: '#' + text
-    replacementHtml = words.map(listItemHtml).join("\n")
-    d3.select('.canvas > ul').html(replacementHtml)
+    hrefForWord = (word) -> '#' + word
+    htmlClassForWord = (word) -> ['add', 'remove', 'change'][(Math.floor(Math.random()*3))]
+    eachWord = d3.select('.canvas > ul').selectAll('li').data(words)
+    console.log eachWord
+    eachWord.enter()
+      .append('li')
+        .append('a')
+    eachWord
+      .attr('class', htmlClassForWord)
+      .text(String)
+    eachWord.select('a')
+        .attr('href', hrefForWord)          
+        .text(console.log)
+    eachWord.exit().remove()
 
   paintStatus = ->
     d3.select('dd#next-stage').text(game.nextStage.name)
