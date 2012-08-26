@@ -122,7 +122,7 @@ ul, ol { list-style: none;}
   background: white;
 }
 
-.game .win-screen p {
+.game .win-screen h1, p {
   padding-top: auto;
   padding-bottom: auto;
   font-size: 200%;
