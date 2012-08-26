@@ -19,6 +19,7 @@ ul, ol { list-style: none;}
   padding-left: 0px;
   margin-left: 0px;
   position: absolute;
+  left: 0px;
 }
 .canvas strong {
   color: rgba(0, 0, 0, .3);
@@ -41,6 +42,10 @@ ul, ol { list-style: none;}
 .canvas > ul {
   width: 100%;
   position: absolute;
+  left: 0px;
+}
+.canvas > ul * {
+  width: auto;
 }
 .canvas > ul > li {
   width: 5em;
@@ -122,7 +127,8 @@ ul, ol { list-style: none;}
   background: white;
 }
 
-.game .win-screen h1, p {
+.game .win-screen h1,
+.game .win-screen p {
   padding-top: auto;
   padding-bottom: auto;
   font-size: 200%;
