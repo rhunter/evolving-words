@@ -27,8 +27,8 @@ canBeMadeByRemovingALetter = (sourceWord, targetWord) ->
 
 # a generator for word pairs
 # eg: all_words.map(isCloseTo('something'))
-window.isCloseTo = (referenceWord) ->
+this.isCloseTo = (referenceWord) ->
   (candidateWord) -> areWordsAdjacent(referenceWord, candidateWord)
 
 
-window.areWordsAdjacent = areWordsAdjacent
+this.areWordsAdjacent = areWordsAdjacent

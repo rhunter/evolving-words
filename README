@@ -44,10 +44,25 @@ Also stopped to order some Thai food delivered :-) Very soon, there'll be enough
 
 For a start, there are no words close to amoeba. :-( Also, it's actually really hard to go where you want. It's hard to scan for a useful word in the grid layout for possible "next" words.
 
+Also, it seems like I've lost Internet access. The neighbours have secured their wifi and my housemate isn't around to ask for our password. I've still got my phone.
+
+
+
 # 8pm (39 hours to go)
 Sitting and looking at it won't help. Time to go do something else and hope my background brain comes up with something. Playing with the guitar helps for a couple of reasons -- it's completely different, and reminds me of the other aspects of the game. Sound, music and even graphics. The game is very text-heavy at the moment, and not particularly styled.
 Maybe I can take some extreme close-up photographs of surfaces and use them as background textures. I don't think I'll have much luck taking convincing photos of micro-organisms for progress.
 
-# 11pm (24 hours to go -- half way!)
+
+# 11pm (36 hours to go)
 I've stayed away for a few hours and haven't come back with huge flashes of inspiration. I guess I'll just try to make this one workable and polished, even if it's not fun. I'd prefer the other way around, to be honest, but I've never polished a game before so I'd like to take this opportunity.
 
+
+# 1am (34 hours to go)
+Time to pack it in for the night. Before I go, I'll leave a long-running job pre-calculating the neighbours of each word. I'm thinking it might be useful to draw a "terrain map" or something to give a sense of directionality. It took a bit longer than I thought to hook up a working pre-calculation script, so it's nearly 1.30 before I get to bed.
+
+# 9am (26 hours to go)
+I woke up to check the results. Apparently it took under 20 minutes to calculate the neighbours for all 50k words in the dictionary. Good to know, in case I have to do it again with some different parameters.
+
+Loading the dictionary back into JavaScript to analyze it turns out to be more complicated than I expected -- `neighbours.length` no longer tells me how many entries in the dictionary, but rather the neighbours for the word "length". JavaScript methods and English words have a lot of overlap. Dang.
+
+Anyway, my biggest problem is still "fun" in the game. Picking words from a list isn't that fun. It doesn't feel directed.
